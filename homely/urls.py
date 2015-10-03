@@ -9,7 +9,7 @@ router.register(r'receivers', ReceiverViewSet)
 router.register(r'donations', DonationViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api/', include(router.urls)),
+    url(r'^api/api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
