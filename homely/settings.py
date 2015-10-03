@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'homely',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -124,3 +125,8 @@ STATICFILES_DIRS = (
 )
 
 ############################### END FOR HEROKU ################################
+
+try:
+    from local_settings import *
+except ImportError as e:
+    pass
