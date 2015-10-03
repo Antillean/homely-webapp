@@ -1,0 +1,30 @@
+## Local files
+venv/
+
+##### BEGIN STUFF FROM https://github.com/github/gitignore/blob/master/Python.gitignore #####
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+
+# Django stuff:
+*.log
+
+##### END STUFF FROM https://github.com/github/gitignore/blob/master/Python.gitignore #####
