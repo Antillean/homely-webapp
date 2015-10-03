@@ -2,11 +2,13 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from rest_framework import routers
-from homely.rest.view_sets import ReceiverViewSet, DonationViewSet
+from homely.rest.view_sets import CharityViewSet, ReceiverViewSet, GiverViewSet, DonationViewSet
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
+router.register(r'charities', CharityViewSet)
 router.register(r'receivers', ReceiverViewSet)
+router.register(r'givers', GiverViewSet)
 router.register(r'donations', DonationViewSet)
 
 urlpatterns = [
