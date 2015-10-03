@@ -1,12 +1,17 @@
 # Serializers define the API representation.
 from rest_framework import serializers
 
-from homely.models import Receiver, Donation
+from homely.models import Receiver, Giver, Donation
 
 class ReceiverSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Receiver
-        fields = ('name', 'photo')
+        fields = ('beacon_id','name', 'photo')
+
+class GiverSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Giver
+        fields = ('facebook_id','name', 'photo')
 
 class DonationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
