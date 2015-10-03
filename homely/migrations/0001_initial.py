@@ -48,7 +48,6 @@ class Migration(migrations.Migration):
                 ('photo', models.ImageField(null=True, upload_to=b'user/photo', blank=True)),
                 ('facebook_id', models.CharField(max_length=100)),
                 ('info', models.TextField()),
-                ('charity', models.ForeignKey(to='homely.Charity')),
             ],
             options={
                 'abstract': False,
@@ -63,5 +62,10 @@ class Migration(migrations.Migration):
             model_name='donation',
             name='receiver',
             field=models.ForeignKey(to='homely.Receiver'),
+        ),
+        migrations.AddField(
+            model_name='receiver',
+            name='charity',
+            field=models.ForeignKey(to='homely.Charity'),
         ),
     ]
