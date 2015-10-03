@@ -3,6 +3,9 @@ from django.db import models
 class Charity(models.Model):
     name = models.CharField(max_length=100)
 
+    class Meta:
+        verbose_name_plural = "charities"
+
 class User(models.Model):
     name = models.CharField(max_length=100)
     photo = models.ImageField(blank=True, null=True, upload_to='user/photo')
