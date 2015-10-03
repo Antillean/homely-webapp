@@ -1,5 +1,6 @@
 ## Local files
 venv/
+staticfiles
 
 ##### BEGIN STUFF FROM https://github.com/github/gitignore/blob/master/Python.gitignore #####
 # Byte-compiled / optimized / DLL files
