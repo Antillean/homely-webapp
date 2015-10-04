@@ -1,5 +1,5 @@
 ## Local files
-venv/
+venv*/
 staticfiles
 local_settings.py
 
