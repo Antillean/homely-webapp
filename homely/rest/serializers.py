@@ -11,12 +11,13 @@ class CharitySerializer(serializers.HyperlinkedModelSerializer):
 class ReceiverSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Receiver
-        fields = ('beacon_id','name', 'photo', 'charity', 'info')
+        fields = ('beacon_id', 'name', 'photo', 'charity', 'info', 'amount_received', 'amount_targeted')
+        read_only_fields = ('amount_remaining')
 
 class GiverSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Giver
-        fields = ('facebook_id', 'name', 'photo')
+        fields = ('facebook_id', 'name', 'photo', 'amount_given')
 
 class DonationSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
