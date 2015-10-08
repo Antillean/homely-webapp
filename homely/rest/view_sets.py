@@ -16,14 +16,16 @@ class ReceiverViewSet(viewsets.ModelViewSet):
     serializer_class = ReceiverSerializer
 
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('beacon_id', 'name', 'photo', 'charity', 'info')
+    filter_fields = ('beacon_id', 'name', 'charity')
+    lookup_field = 'beacon_id'
 
 class GiverViewSet(viewsets.ModelViewSet):
     queryset = Giver.objects.all()
     serializer_class = GiverSerializer
 
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('facebook_id', 'name', 'photo')
+    filter_fields = ('facebook_id', 'name')
+    lookup_field = 'facebook_id'
 
 class DonationViewSet(viewsets.ModelViewSet):
     queryset = Donation.objects.all()
@@ -31,3 +33,4 @@ class DonationViewSet(viewsets.ModelViewSet):
 
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('giver', 'receiver', 'amount', 'payment_token')
+    lookup_field = 'payment_token'

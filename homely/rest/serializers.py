@@ -9,17 +9,29 @@ class CharitySerializer(serializers.HyperlinkedModelSerializer):
         # fields = ('name')
 
 class ReceiverSerializer(serializers.HyperlinkedModelSerializer):
+    # charity = CharitySerializer()
+
     class Meta:
         model = Receiver
-        fields = ('beacon_id', 'name', 'photo', 'charity', 'info', 'amount_received', 'amount_targeted')
-        read_only_fields = ('amount_remaining')
+        extra_kwargs = {
+            'url': {'lookup_field': 'beacon_id'}
+        }
 
 class GiverSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Giver
-        fields = ('facebook_id', 'name', 'photo', 'amount_given')
+        extra_kwargs = {
+            'url': {'lookup_field': 'facebook_id'}
+        }
 
 class DonationSerializer(serializers.HyperlinkedModelSerializer):
+    # receiver = ReceiverSerializer()
+    # giver = GiverSerializer()
+
     class Meta:
         model = Donation
-        fields = ('giver', 'receiver', 'amount', 'payment_token')
+        extra_kwargs = {
+            'url': {'lookup_field': 'payment_token'},
+            'receiver': {'lookup_field': 'beacon_id'},
+            'giver': {'lookup_field': 'facebook_id'}
+        }
