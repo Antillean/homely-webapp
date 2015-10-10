@@ -1,5 +1,6 @@
 import string, random
 
+from django.core.validators  import MinValueValidator
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -47,7 +48,8 @@ class Receiver(User):
     charity = models.ForeignKey(Charity)
     info = models.TextField(blank=True, null=True)
     amount_received = models.DecimalField(max_digits=8, decimal_places=2, default=0)
-    amount_targeted = models.DecimalField(max_digits=8, decimal_places=2)
+    amount_targeted = models.DecimalField(max_digits=8, decimal_places=2,
+                        validators=[MinValueValidator(10)])
 
     @property
     def target_percentage(self):
