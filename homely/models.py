@@ -1,6 +1,12 @@
+import string, random
+
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
+
+def get_random_payment_token():
+    LOWER_CASE_HEXDIGITS = string.hexdigits[:-6]
+    return ''.join(random.choice(string.hexdigits[:-6]) for char in range(20))
 
 class DateAware(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -23,13 +29,14 @@ class Donation(DateAware):
     giver = models.ForeignKey('Giver')
     receiver = models.ForeignKey('Receiver')
     amount = models.DecimalField(max_digits=8, decimal_places=2)
-    payment_token = models.CharField(max_length=100, unique=True)
+    payment_token = models.CharField(max_length=100, unique=True, default=get_random_payment_token)
+    donation_date = models.DateField(auto_now_add=True)
 
     def __unicode__(self):
         return u"%s - \xA3%.2f -> %s" %(self.giver, self.amount, self.receiver)
 
 class User(DateAware):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=200)
     photo = models.ImageField(blank=True, null=True, upload_to='user/photo')
 
     class Meta(DateAware.Meta):
@@ -41,6 +48,10 @@ class Receiver(User):
     info = models.TextField(blank=True, null=True)
     amount_received = models.DecimalField(max_digits=8, decimal_places=2, default=0)
     amount_targeted = models.DecimalField(max_digits=8, decimal_places=2)
+
+    @property
+    def target_percentage(self):
+        return self.amount_received / self.amount_targeted
 
     @property
     def amount_remaining(self):
@@ -64,6 +75,9 @@ class Receiver(User):
 class Giver(User):
     facebook_id = models.CharField(max_length=100, unique=True)
     amount_given = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    email = models.EmailField()
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
 
     @property
     def donations(self):
