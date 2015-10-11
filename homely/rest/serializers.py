@@ -65,11 +65,8 @@ class GiverSerializer(serializers.HyperlinkedModelSerializer):
             'url': {'lookup_field': 'facebook_id'}
         }
 
-
-class DonationSerializer(serializers.HyperlinkedModelSerializer):
+class DonationLinkSerializer(serializers.HyperlinkedModelSerializer):
     donation_date = serializers.DateField(format="%d %b %Y", input_formats=(ISO_8601,""))
-    receiver = ReceiverSerializer()
-    giver = GiverSerializer()
 
     class Meta:
         model = Donation
@@ -80,3 +77,11 @@ class DonationSerializer(serializers.HyperlinkedModelSerializer):
             'receiver': {'lookup_field': 'beacon_id'},
             'giver': {'lookup_field': 'facebook_id'}
         }
+
+class DonationFullSerializer(DonationLinkSerializer):
+    ## Use full serialisers for receiver and giver.
+    receiver = ReceiverSerializer()
+    giver = GiverSerializer()
+
+    class Meta(DonationLinkSerializer.Meta):
+        pass

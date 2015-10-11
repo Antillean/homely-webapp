@@ -33,8 +33,18 @@ class GiverViewSet(viewsets.ModelViewSet):
 
 class DonationViewSet(viewsets.ModelViewSet):
     queryset = Donation.objects.all()
-    serializer_class = DonationSerializer
+    serializer_class = DonationLinkSerializer
 
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('giver', 'receiver', 'amount', 'payment_token')
     lookup_field = 'payment_token'
+
+    ## Use DonationFullSerializer for list and retrieve, and DonationLinkSerializer
+    ## for everything else.
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return DonationFullSerializer
+        elif self.action == 'retrieve':
+            return DonationFullSerializer
+        else:
+            return self.serializer_class
